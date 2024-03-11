@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Form</title>
+</head>
+<body>
+  <h2>Регистрация пользователя</h2>
+  <form id="userForm">
+    <label for="username">Имя:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="phoneNumber">Номер телефона:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required>
+
+    <button type="submit">Отправить</button>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const userForm = document.getElementById("userForm");
+
+      userForm.addEventListener("submit", function (event) {
+        event.preventDefault(); 
+
+        
+        const usernameInput = document.getElementById("username").value;
+        const passwordInput = document.getElementById("password").value;
+        const phoneNumberInput = document.getElementById("phoneNumber").value;
+
+     
+        const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+        const phoneNumberRegex = /^\+\d{1,3}-\d{3,}$/;
+
+        // Validate username
+        if (!usernameRegex.test(usernameInput)) {
+          alert("Неправильное имя.От 3-16 символов.");
+          return;
+        }
+
+        // Validate password
+        if (!passwordRegex.test(passwordInput)) {
+          alert("Неправильный пароль, необходимо чтобы в нем была строчная буква и длина не менее 8 символов");
+          return;
+        }
+
+        // Validate phone number
+        if (!phoneNumberRegex.test(phoneNumberInput)) {
+          alert("Правильный формат номера +xxx-xxx");
+          return;
+        }
+
+      
+        alert("Форма отправлена успешно");
+       
+      });
+    });
+  </script>
+</body>
+</html>

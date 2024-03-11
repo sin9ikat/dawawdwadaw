@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лаба 18</title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <form id="myForm" action="#" method="post">
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" name="username">
+    <span id="usernameError" class="error"></span>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+    <span id="emailError" class="error"></span>
+    
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password">
+    <span id="passwordError" class="error"></span>
+    <!--текстовое поле Возраст -->
+    <label for="age">Возраст:</label>
+    <input type="number" id="age" name="age" required min="1"><br><br>
+    <!--Переключатели -->
+    <label for="gender">Пол:</label>
+    <input type="radio" id="male" name="gender" value="Мужской" required>
+    <label for="male">Мужской</label>
+    <input type="radio" id="female" name="gender" value="Женский" required>
+    <label for="female">Женский</label><br><br>
+    <!--Выподающий список -->
+    <label for="country">Страна:</label>
+    <select id="country" name="country" required>
+      <option value="Россия">Россия</option>
+      <option value="США">США</option>
+      <option value="Франция">Франция</option>
+    </select><br><br>
+    <!--Флажок-->
+    <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+    <label for="subscribe">Подписаться на рассылку</label><br><br>
+    <!--Кнопка для отправления данных -->
+   
+    <input type="submit" value="Отправить">
+  </form>
+
+  <script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+      let username = document.getElementById('username').value;
+      let email = document.getElementById('email').value;
+      let password = document.getElementById('password').value;
+      let age = document.getElementById('age').value;
+
+      let usernameError = document.getElementById('usernameError');
+      let emailError = document.getElementById('emailError');
+      let passwordError = document.getElementById('passwordError');
+      let ageError = document.getElementById('ageError').value;
+
+      // Проверка на пустоту
+      if (username === '') {
+        usernameError.textContent = 'Поле не может быть пустым';
+        event.preventDefault(); // Остановка отправки формы
+      } else {
+        usernameError.textContent = '';
+      }
+      if (age === '') {
+        usernameError.textContent = 'Поле не может быть пустым';
+        event.preventDefault(); // Остановка отправки формы
+      } else {
+        ageError.textContent = '';
+      }
+      if (username === '') {
+        usernameError.textContent = 'Поле не может быть пустым';
+        event.preventDefault(); // Остановка отправки формы
+      } else {
+        usernameError.textContent = '';
+      }
+
+      if (email === '') {
+        emailError.textContent = 'Поле не может быть пустым';
+        event.preventDefault();
+      } else {
+        emailError.textContent = '';
+      }
+
+      if (password === '') {
+        passwordError.textContent = 'Поле не может быть пустым';
+        event.preventDefault();
+      } else {
+        passwordError.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>

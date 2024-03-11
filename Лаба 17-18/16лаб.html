@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="app.css">
+    <title>Form</title>
+  
+</head>
+<body>
+    <form id="myForm" onsubmit="return validateForm()">
+        <!--текстовое поле Имя -->
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required minlength="3"><br><br>
+        <!--текстовое поле Возраст -->
+        <label for="age">Возраст:</label>
+        <input type="number" id="age" name="age" required min="1"><br><br>
+        <!--Переключатели -->
+        <label for="gender">Пол:</label>
+        <input type="radio" id="male" name="gender" value="Мужской" required>
+        <label for="male">Мужской</label>
+        <input type="radio" id="female" name="gender" value="Женский" required>
+        <label for="female">Женский</label><br><br>
+        <!--Выподающий список -->
+        <label for="country">Страна:</label>
+        <select id="country" name="country" required>
+          <option value="Россия">Россия</option>
+          <option value="США">США</option>
+          <option value="Франция">Франция</option>
+        </select><br><br>
+        <!--Флажок-->
+        <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+        <label for="subscribe">Подписаться на рассылку</label><br><br>
+        <!--Кнопка для отправления данных -->
+        <input type="button" value="Получить данные" onclick="getFormData()">
+      </form>
+      <!--Скрипт для вывода пользовательских данных из формы в диалоговое окно -->
+      <script>
+      function validateForm() { //валидация
+        var form = document.getElementById("myForm");
+
+        // Validation for name (not empty and minimum length)
+        var name = form.elements["name"].value;
+        if (name === '' || name.length < 3) {
+          alert('Пожалуйста, введите действительное имя (не менее 3 символов).');
+          return false;
+        }
+
+        // Validation for age (not empty and minimum value)
+        var age = form.elements["age"].value;
+        if (age === '' || age < 1) {
+          alert('Пожалуйста, укажите  возраст.');
+          return false;
+        }
+
+        // Validation for gender (at least one radio button selected)
+        var gender = form.elements["gender"];
+        if (!gender[0].checked && !gender[1].checked) {
+          alert('Пожалуйста, укажите ваш пол');
+          return false;
+        }
+
+        // Validation for country (not empty)
+        var country = form.elements["country"].value;
+        if (country === '') {
+          alert('Пожалуйста, выберите страну.');
+          return false;
+        }
+
+        // Additional validation logic can be added here if needed
+
+        return true; // Returning true allows the form to be submitted
+      }
+      //функция для вывода сообщения данных из формы
+      function getFormData() {
+        if (validateForm()) {
+          var form = document.getElementById("myForm");
+          var name = form.elements["name"].value;
+          var age = form.elements["age"].value;
+          var gender = form.elements["gender"].value;
+          var country = form.elements["country"].value;
+          var subscribe = form.elements["subscribe"].checked;
+        
+          var message = "Имя: " + name + "\n";
+          message += "Возраст: " + age + "\n";
+          message += "Пол: " + gender + "\n";
+          message += "Страна: " + country + "\n";
+          message += "Подписка на рассылку: " + (subscribe ? "Да" : "Нет");
+        
+          alert(message);
+        }
+      }
+      </script>
+
+</body>
+</html>

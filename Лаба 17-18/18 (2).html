@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="app.css">
+    <title>Form</title>
+</head>
+<body>
+    <form id="myForm" onsubmit="return validateForm()">
+        <!--текстовое поле Имя -->
+        <label for="name">Имя:</label>
+        <!-- =+= Добавлен атрибут pattern для использования регулярного выражения -->
+        <input type="text" id="name" name="name" required minlength="3" pattern="^[a-zA-Zа-яА-Я]+$"><br><br>
+        <!--текстовое поле Возраст -->
+        <label for="age">Возраст:</label>
+        <!-- =+= Добавлен атрибут pattern для использования регулярного выражения -->
+        <input type="number" id="age" name="age" required min="1" pattern="^\d+$"><br><br>
+        <!--Переключатели -->
+        <label for="gender">Пол:</label>
+        <input type="radio" id="male" name="gender" value="Мужской" required>
+        <label for="male">Мужской</label>
+        <input type="radio" id="female" name="gender" value="Женский" required>
+        <label for="female">Женский</label><br><br>
+        <!--Выпадающий список -->
+        <label for="country">Страна:</label>
+        <!-- =+= Добавлен атрибут pattern для использования регулярного выражения -->
+        <select id="country" name="country" required>
+            <option value="Россия">Россия</option>
+            <option value="США">США</option>
+            <option value="Франция">Франция</option>
+        </select><br><br>
+        <!--Флажок-->
+        <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+        <label for="subscribe">Подписаться на рассылку</label><br><br>
+        <!--Кнопка для отправления данных -->
+        <input type="button" value="Получить данные" onclick="getFormData()">
+    </form>
+    <!--Скрипт для вывода пользовательских данных из формы в диалоговое окно -->
+    <script>
+        function validateForm() {
+            var form = document.getElementById("myForm");
+
+            // Проверка имени (не пустое и минимальной длины)
+            var name = form.elements["name"].value;
+            // =+= Пример использования RegExp с методом test
+            if (!/^[a-zA-Zа-яА-Я]+$/.test(name)) {
+                alert('Пожалуйста, введите ваше имя, используя только буквы.');
+                return false;
+            }
+
+            // Проверка возраста (не пустой, а минимальное значение)
+            var age = form.elements["age"].value;
+            // =+= Пример использования RegExp с методом test
+            if (!/^\d+$/.test(age) || age < 1) {
+                alert('Пожалуйста, укажите корректный возраст.');
+                return false;
+            }
+
+            // Проверка по признаку пола (выбран хотя бы один переключатель)
+            var gender = form.elements["gender"];
+            // =+= Пример использования RegExp с методом exec
+            if (!/Мужской|Женский/.exec(gender[0].value)) {
+                alert('Пожалуйста, укажите ваш пол');
+                return false;
+            }
+
+            // Проверка для страны (не пустая)
+            var country = form.elements["country"].value;
+            // =+= Пример использования RegExp с методом exec
+            if (!/^(Россия|США|Франция)$/.exec(country)) {
+                alert('Пожалуйста, выберите страну.');
+                return false;
+            }
+
+            return true; // Возврат значения true позволяет отправить форму
+        }
+
+        function getFormData() {
+            if (validateForm()) {
+                var form = document.getElementById("myForm");
+                var name = form.elements["name"].value;
+                var age = form.elements["age"].value;
+                var gender = form.elements["gender"].value;
+                var country = form.elements["country"].value;
+                var subscribe = form.elements["subscribe"].checked;
+
+                var message = "Имя: " + name + "\n";
+                message += "Возраст: " + age + "\n";
+                message += "Пол: " + gender + "\n";
+                message += "Страна: " + country + "\n";
+                message += "Подписка на рассылку: " + (subscribe ? "Да" : "Нет");
+
+                alert(message);
+
+                // =+= Пример использования метода replace
+                var replacedMessage = message.replace('Подписка на рассылку:', 'Подписка:');
+                console.log(replacedMessage);
+            }
+        }
+    </script>
+</body>
+</html>
