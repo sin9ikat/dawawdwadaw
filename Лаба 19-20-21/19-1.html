@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalStorage Example</title>
+</head>
+<body>
+
+<form id="userForm">
+  <label for="fullName">ФИО:</label>
+  <input type="text" id="fullName" name="fullName" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="dob">Дата рождения:</label>
+  <input type="date" id="dob" name="dob" required>
+
+  <label for="birthPlace">Место рождения:</label>
+  <input type="text" id="birthPlace" name="birthPlace" required>
+
+  <label for="hobbies">Увлечения:</label>
+  <input type="text" id="hobbies" name="hobbies" required>
+
+  <button type="button" onclick="saveData()">Сохранить данные в LocalStorage</button>
+</form>
+
+<button type="button" onclick="getData()">Получить данные из LocalStorage</button>
+<button type="button" onclick="clearData()">Очистить LocalStorage</button>
+
+<script>
+  function saveData() {
+    const formData = {
+      fullName: document.getElementById('fullName').value,
+      email: document.getElementById('email').value,
+      dob: document.getElementById('dob').value,
+      birthPlace: document.getElementById('birthPlace').value,
+      hobbies: document.getElementById('hobbies').value
+    };
+
+    // Преобразование объекта в строку JSON и сохранение в LocalStorage
+    localStorage.setItem('userData', JSON.stringify(formData));
+  }
+
+  function getData() {
+    const storedData = localStorage.getItem('userData');
+
+    if (storedData) {
+      // Извлечение данных из LocalStorage и преобразование их обратно в объект
+      const userData = JSON.parse(storedData);
+
+      // Вывод данных в консоль 
+      console.log(userData);
+    } else {
+      console.log('Данные не найдены в LocalStorage.');
+    }
+  }
+
+  function clearData() {
+    // Удаление данных из LocalStorage
+    localStorage.removeItem('userData');
+    console.log('Данные в LocalStorage успешно удалены.');
+  }
+</script>
+
+</body>
+</html>

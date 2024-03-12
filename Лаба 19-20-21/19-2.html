@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Example</title>
+</head>
+<body>
+
+<form id="userForm">
+  <label for="fullName">ФИО:</label>
+  <input type="text" id="fullName" name="fullName" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="dob">Дата рождения:</label>
+  <input type="date" id="dob" name="dob" required>
+
+  <label for="birthPlace">Место рождения:</label>
+  <input type="text" id="birthPlace" name="birthPlace" required>
+
+  <label for="hobbies">Увлечения:</label>
+  <input type="text" id="hobbies" name="hobbies" required>
+
+  <button type="button" onclick="saveData()">Сохранить данные в Cookie</button>
+</form>
+
+<button type="button" onclick="getData()">Получить данные из Cookie</button>
+<button type="button" onclick="clearData()">Очистить Cookie</button>
+
+<script>
+  function saveData() {
+    const formData = {
+      fullName: document.getElementById('fullName').value,
+      email: document.getElementById('email').value,
+      dob: document.getElementById('dob').value,
+      birthPlace: document.getElementById('birthPlace').value,
+      hobbies: document.getElementById('hobbies').value
+    };
+
+    // Преобразование объекта в строку JSON и сохранение в cookie
+    document.cookie = `userData=${JSON.stringify(formData)}; expires=Thu, 01 Jan 2030 00:00:00 UTC; path=/`;
+  }
+
+  function getData() {
+    const cookieValue = document.cookie
+      .split('; ')
+      .find(cookie => cookie.startsWith('userData='));
+
+    if (cookieValue) {
+      // Извлечение данных из cookie и преобразование их обратно в объект
+      const userData = JSON.parse(cookieValue.split('=')[1]);
+
+      // Вывод данных в консоль (можно также использовать для отображения на странице)
+      console.log(userData);
+    } else {
+      console.log('Данные не найдены в Cookie.');
+    }
+  }
+
+  function clearData() {
+    // Удаление cookie с данными
+    document.cookie = 'userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    console.log('Данные в Cookie успешно удалены.');
+  }
+</script>
+
+</body>
+</html>
